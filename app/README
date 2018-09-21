@@ -1,0 +1,57 @@
+## Android在渲染前会将dp转化成px，公式如下：
+    px = density * dp
+    density = dpi / 160
+    px = (dpi/160) *dp
+
+## 屏幕尺寸、分辨率、像素密度关系
+![关系](https://mmbiz.qpic.cn/mmbiz_png/5EcwYhllQOgM19n6iawpWQRCfcibxicoBYG0aE9VoUJylxjwZHClXzKeeiadnQyvpLwsyZfES4axmPkmrwZ1jtyibKA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1)
+```
+public DisplayMetrics getDisplayMetrics() {
+          return mResourcesImpl.getDisplayMetrics();
+      }
+```
+```
+public class DisplayMetrics {
+       public int widthPixels;
+       /**
+        * The absolute height of the available display size in pixels.
+        */
+       public int heightPixels;
+
+       public float density;
+       /**
+        * The screen density expressed as dots-per-inch.  May be either
+        * {@link #DENSITY_LOW}, {@link #DENSITY_MEDIUM}, or {@link #DENSITY_HIGH}.
+        */
+       public int densityDpi;
+       /**
+        * A scaling factor for fonts displayed on the display.  This is the same
+        * as {@link #density}, except that it may be adjusted in smaller
+        * increments at runtime based on a user preference for the font size.
+        */
+       public float scaledDensity;
+       /**
+        * The exact physical pixels per inch of the screen in the X dimension.
+```
+## XML中dp转换成px
+```
+   public static float applyDimension(int unit, float value,
+                                       DisplayMetrics metrics)
+    {
+        switch (unit) {
+        case COMPLEX_UNIT_PX:
+            return value;
+        case COMPLEX_UNIT_DIP:
+            return value * metrics.density;
+        case COMPLEX_UNIT_SP:
+            return value * metrics.scaledDensity;
+        case COMPLEX_UNIT_PT:
+            return value * metrics.xdpi * (1.0f/72);
+        case COMPLEX_UNIT_IN:
+            return value * metrics.xdpi;
+        case COMPLEX_UNIT_MM:
+            return value * metrics.xdpi * (1.0f/25.4f);
+        }
+        return 0;
+    }
+```
