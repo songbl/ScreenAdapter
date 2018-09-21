@@ -5,6 +5,9 @@
 
 ## 屏幕尺寸、分辨率、像素密度关系
 ![关系](https://mmbiz.qpic.cn/mmbiz_png/5EcwYhllQOgM19n6iawpWQRCfcibxicoBYG0aE9VoUJylxjwZHClXzKeeiadnQyvpLwsyZfES4axmPkmrwZ1jtyibKA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1)
+### 从dp和px的转换公式 ：px = dp * density
+
+    可以看出，如果设计图宽为360dp，想要保证在所有设备计算得出的px值都正好是屏幕宽度的话，我们只能修改 density 的值
 ```
 public DisplayMetrics getDisplayMetrics() {
           return mResourcesImpl.getDisplayMetrics();

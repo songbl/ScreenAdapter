@@ -44,8 +44,8 @@ public class MainActivity extends AppCompatActivity {
 
         }
         //屏幕宽 的像素除以360 获得Density的值
-        final float targetDensity = appDisplayMetrics.widthPixels / 360;         //px=density/dp
-        final float targetScaledDensity = targetDensity * (sNonCompatScaleDensity / sNonCompatDensity);
+        final float targetDensity = appDisplayMetrics.widthPixels / 360;         //px=density/dp    =》360是设计图尺寸
+        final float targetScaledDensity = targetDensity * (sNonCompatScaleDensity / sNonCompatDensity);//按照缩放比例，设置上缩放密度
         final int targetDensityDpi = (int) (targetDensity * 160);
 
         appDisplayMetrics.density = targetDensity;
